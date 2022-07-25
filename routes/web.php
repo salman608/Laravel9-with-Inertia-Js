@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use inertia\inertia;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,7 @@ Route::get('/about', function () {
 //     return Inertia::render('Contact');
 // });
 
-Route::inertia('/contact', 'Contact');
+// Route::inertia('/contact', 'Contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
