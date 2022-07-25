@@ -21,7 +21,9 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return Inertia::render('About');
 });
-Route::get('/contact', function () {
-    return Inertia::render('Contact');
-});
+// Route::get('/contact', function () {
+//     return Inertia::render('Contact');
+// });
+
+Route::inertia('/contact', 'Contact');
 
