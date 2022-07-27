@@ -12,7 +12,7 @@
                     <div class="md:grid md:grid-cols-3 md:gap-6">
                         <div class="md:col-span-1">
                             <div class="px-4 sm:px-0">
-                                <h3 class="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
+                                <h3 class="text-lg font-medium leading-6 text-gray-900">Contact Information</h3>
                                 <p class="mt-1 text-sm text-gray-600">Use a permanent address where you can receive
                                     mail.</p>
                             </div>
@@ -29,7 +29,11 @@
                                                 </label>
                                                 <input type="text" v-model="form.name" name="name" id="name"
                                                     autocomplete="name"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                    :class="{ 'border-red-500': form.errors.name }">
+                                                <p class="text-pink-600" v-if="form.errors.name">{{ form.errors.name
+                                                }}
+                                                </p>
                                             </div>
 
                                             <div class="col-span-10 sm:col-span-8">
@@ -38,7 +42,10 @@
                                                     address</label>
                                                 <input type="email" v-model="form.email" name="email-address"
                                                     id="email-address" autocomplete="email"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                    :class="{ 'border-red-500': form.errors.name }">
+                                                <p class="text-pink-600" v-if="form.errors.name">{{ form.errors.email }}
+                                                </p>
                                             </div>
 
                                             <div class="col-span-10 sm:col-span-8">
@@ -47,7 +54,11 @@
                                                 </label>
                                                 <input type="text" v-model="form.subject" name="subject" id="subject"
                                                     autocomplete="subject"
-                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                    :class="{ 'border-red-500': form.errors.name }">
+                                                <p class="text-pink-600" v-if="form.errors.name">{{ form.errors.subject
+                                                }}
+                                                </p>
                                             </div>
 
                                             <div class="col-span-10 sm:col-span-8">
@@ -58,7 +69,12 @@
                                                     <textarea id="message" v-model="form.message" name="message"
                                                         rows="3"
                                                         class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                                        placeholder="Write Your message"></textarea>
+                                                        placeholder="Write Your message"
+                                                        :class="{ 'border-red-500': form.errors.name }"></textarea>
+                                                    <p class="text-pink-600" v-if="form.errors.name">{{
+                                                            form.errors.message
+                                                    }}
+                                                    </p>
                                                 </div>
                                             </div>
 
@@ -85,10 +101,11 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3'
-import AppLayout from '../Layouts/App'
-import AppHead from '../Layouts/AppHead'
+import AppLayout from '../../Layouts/App'
+import AppHead from '../../Layouts/AppHead'
 import { reactive } from 'vue'
 import { Inertia } from '@inertiajs/inertia'
+import { useForm } from '@inertiajs/inertia-vue3'
 
 export default {
     components: {
@@ -97,14 +114,14 @@ export default {
         Link,
     },
     setup() {
-        const form = reactive({
+        const form = useForm({
             name: '',
             email: '',
             subject: '',
             message: ''
         });
         function submit() {
-            Inertia.post('/contact', form)
+            form.post('/contacts/store')
         }
         return { form, submit };
     }

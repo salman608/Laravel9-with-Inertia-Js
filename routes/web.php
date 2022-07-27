@@ -19,7 +19,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 });
 
-Route::get('/about', function () {
+Route::get('/abouts', function () {
     return Inertia::render('About');
 });
 // Route::get('/contact', function () {
@@ -27,6 +27,9 @@ Route::get('/about', function () {
 // });
 
 // Route::inertia('/contact', 'Contact');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacts/store', [ContactController::class, 'store'])->name('contacts.store');
+Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+Route::put('/contacts/{id}/update', [ContactController::class, 'update'])->name('contacts.update');
 
