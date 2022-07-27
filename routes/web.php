@@ -17,11 +17,11 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
-});
+})->name('welcome');
 
 Route::get('/abouts', function () {
     return Inertia::render('About');
-});
+})->name('about');
 // Route::get('/contact', function () {
 //     return Inertia::render('Contact');
 // });
@@ -32,4 +32,5 @@ Route::get('/contacts/create', [ContactController::class, 'create'])->name('cont
 Route::post('/contacts/store', [ContactController::class, 'store'])->name('contacts.store');
 Route::get('/contacts/{id}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
 Route::put('/contacts/{id}/update', [ContactController::class, 'update'])->name('contacts.update');
+Route::delete('/contacts/{id}/destroy', [ContactController::class, 'destroy'])->name('contacts.delete');
 

@@ -125,7 +125,7 @@ export default {
         });
 
         function submit() {
-            form.put(`/contacts/` + props.contactInfo.id + `/update`)
+            form.put(route('contact.update', props.contactInfo.id))
         }
         return { form, submit };
     }

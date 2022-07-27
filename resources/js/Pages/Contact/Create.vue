@@ -121,7 +121,7 @@ export default {
             message: ''
         });
         function submit() {
-            form.post('/contacts/store')
+            form.post(route('contacts.store'))
         }
         return { form, submit };
     }

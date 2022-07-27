@@ -22,7 +22,7 @@
 
                     <div class="flex space-x-2 justify-end">
                         <div>
-                            <Link type="button" href="contacts/create"
+                            <Link type="button" :href="route('contacts.create')"
                                 class="inline-block px-6 py-2.5 bg-blue-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-lg hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                             Add Contact</Link>
 
@@ -98,8 +98,8 @@
                                             </td>
 
                                             <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                <Link :href="`/contacts/${contactInfo.id}/edit`">Edit</Link>
-                                                <Link href="">Delete</Link>
+                                                <Link :href="`/contacts/${contactInfo.id}/edit`">Edit</Link>|
+                                                <button @click="destroy(contactInfo.id)" type="button">Delete</button>
 
 
                                             </td>
@@ -125,6 +125,7 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import AppLayout from '../../Layouts/App'
 import AppHead from '../../Layouts/AppHead'
+import { Inertia } from '@inertiajs/inertia'
 
 
 export default {
@@ -136,6 +137,20 @@ export default {
     props: {
         contactInfo: Array,
         title: String
+    },
+
+    // delete function
+    setup() {
+        function destroy(id) {
+
+            Inertia.delete(`/contacts/${id}/destroy`, {
+                onBefore: () => confirm('Are you sure Delete Contact?'),
+                onSuccess: (page) => alert('Contact Deleted Successfully'),
+            })
+        }
+        return {
+            destroy
+        }
     },
 
 }

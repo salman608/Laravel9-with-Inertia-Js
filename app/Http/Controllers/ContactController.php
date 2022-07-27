@@ -39,7 +39,7 @@ class ContactController extends Controller
         'message' => $request->message,
       ]);
       
-        return redirect()->to('/contacts');
+        return redirect()->route('contacts.index');
     }
 
     public function edit($id)
@@ -69,7 +69,12 @@ class ContactController extends Controller
         'message' => $request->message,
       ]);
       
-        return redirect()->to('/contacts');
+        return redirect()->route('contacts.index');
+    }
 
+    public function destroy($id){
+        $contactInfo = Contact::findOrFail($id);
+        $contactInfo->delete();
+        return redirect()->back();
     }
 }
